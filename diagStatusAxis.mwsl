@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="expires" content="0" />
+	<title>Pick and Place Master - Diagnostics</title>
+    <link rel="stylesheet" href="css/diagStatus.css" type="text/css" />
+    <script src="scripts/libByMichael.js" type="text/javascript"></script>
+    <script src="scripts/diagStatusAxis.js" type="text/javascript"></script>
+</head>
+
+<body onload="diagStatusAxisHandler.setupPage()">
+    <div id = 'selectContents'>
+        <select class="customSelectBox" id="selectContentsToShow" size="1" onchange="diagStatusAxisHandler.setPageContents()">
+            <option value=0>Sequence control</option>
+            <option value=1>Faults / Alarms 1</option>
+            <option value=2>Faults / Alarms 2</option>
+            <option value=3>Speed controller</option>
+        </select>
+    </div>
+    <br />
+    <br />
+   	<div class="pageColumn" id="controlWordColumn">
+		<h1>Control word sequence control</h1>
+        <div class="indicatorItem">
+            <img id="controlWordAxisOff1Enable" src="images/indicatorOff.png" alt="off" />
+			<p>ON / OFF1</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisOff2Enable" src="images/indicatorOff.png" alt="off" />
+            <p>ON / OFF2</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisOff3Enable" src="images/indicatorOff.png" alt="off" />
+			<p>ON / OFF3</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisOperationEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Operation enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisRampFctGeneratorEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Ramp-function generator enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisContinueRampFctGenerator" src="images/indicatorOff.png" alt="off" />
+			<p>Continue ramp-function generator</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisSpeedSetpointEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Speed setpoint enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisCommandOpenBrake" src="images/indicatorOff.png" alt="off" />
+			<p>Command open brake</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisJog1" src="images/indicatorOff.png" alt="off" />
+			<p>Jog 1</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisJog2" src="images/indicatorOff.png" alt="off" />
+			<p>Jog 2</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisMasterCtrlByPlc" src="images/indicatorOff.png" alt="off" />
+			<p>Master control by PLC</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisSpeedControllerEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Speed controller enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAxisCommandCloseBrake" src="images/indicatorOff.png" alt="off" />
+			<p>Command close brake</p>
+		</div>
+        
+        <div class="legend">
+            <div class="indicatorItem">
+                <img src="images/indicatorOn.png" alt="on" />
+                <p>OK</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorCritical.png" alt="critical" />
+                <p>Not OK</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorNeutral.png" alt="neutral" />
+                <p>May be not important</p>
+            </div>
+        </div>
+	</div>
+    
+    <div class="pageColumnRight" id="statusWordColumn">
+		<h1>Status word sequence control</h1>
+        <div class="indicatorItem">
+            <img id="statusWordAxisReadyForSwitchOn" src="images/indicatorOff.png" alt="off" />
+			<p>Ready for switch on</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisReady" src="images/indicatorOff.png" alt="off" />
+            <p>Ready</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisOperationEnabled" src="images/indicatorOff.png" alt="off" />
+			<p>Operation enabled</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisJogActive" src="images/indicatorOff.png" alt="off" />
+			<p>Jog active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisNoCoastingActive" src="images/indicatorOff.png" alt="off" />
+			<p>No coasting active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisNoQuickStopActive" src="images/indicatorOff.png" alt="off" />
+			<p>No quick stop active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisSwitchingOnInhibitedActive" src="images/indicatorOff.png" alt="off" />
+			<p>Switching on inhibited active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisDriveReady" src="images/indicatorOff.png" alt="off" />
+			<p>Drive ready</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisControllerEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Controller enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisControlRequest" src="images/indicatorOff.png" alt="off" />
+			<p>Control request</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisMasterPulsesEnabled" src="images/indicatorOff.png" alt="off" />
+			<p>Pulses enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisOpenHoldingBrake" src="images/indicatorOff.png" alt="off" />
+			<p>Open holding brake</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisCommandCloseHoldingBrake" src="images/indicatorOff.png" alt="off" />
+			<p>Command close holding brake</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisPulseEnableFromBrakeControl" src="images/indicatorOff.png" alt="off" />
+			<p>Pulse enable from the brake control</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAxisSetpointEnableFromBrakeControl" src="images/indicatorOff.png" alt="off" />
+			<p>Setpoint enable from the brake control</p>
+		</div>
+	</div>
+    
+    <div class="pageColumn" id="controlWordAlarmsFaultsColumn">
+        <h1>Control word faults / alarms</h1>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsAcknowledgeFaults" src="images/indicatorOff.png" alt="off" />
+			<p>Acknowledge fault</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsExternalAlarm1Effective" src="images/indicatorOff.png" alt="off" />
+			<p>External alarm 1 (A07850) effective</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsExternalAlarm2Effective" src="images/indicatorOff.png" alt="off" />
+			<p>External alarm 2 (A07851) effective</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsExternalAlarm3Effective" src="images/indicatorOff.png" alt="off" />
+			<p>External alarm 3 (A07852) effective</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsExternalFault1Effective" src="images/indicatorOff.png" alt="off" />
+			<p>External fault 1 (F07860) effective</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsExternalFault2Effective" src="images/indicatorOff.png" alt="off" />
+			<p>External fault 2 (F07861) effective</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordAlarmsFaultsExternalFault3Effective" src="images/indicatorOff.png" alt="off" />
+			<p>External fault 3 (F07862) effective</p>
+		</div>
+        
+        <div class="legend">
+            <div class="indicatorItem">
+                <img src="images/indicatorOn.png" alt="on" />
+                <p>OK</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorCritical.png" alt="critical" />
+                <p>Not OK</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorNeutral.png" alt="neutral" />
+                <p>May be not important</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pageColumnRight" id="statusWordAlarmsFaultsColumn">
+        <h1>Status word faults / alarms 1</h1>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsBeingAcknowledged" src="images/indicatorOff.png" alt="off" />
+			<p>Being acknowledged</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsAcknowledgmentRequired" src="images/indicatorOff.png" alt="off" />
+			<p>Acknowledgement required</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsFaultPresent" src="images/indicatorOff.png" alt="off" />
+			<p>Fault present</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsSafetyMessagePresent" src="images/indicatorOff.png" alt="off" />
+			<p>Safety message present</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsAlarmPresent" src="images/indicatorOff.png" alt="off" />
+			<p>Alarm present</p>
+		</div>
+    </div>
+    <div class="pageColumnRight" id="statusWordAlarmsFaults2Column">
+        <h1>Status word faults / alarms 2</h1>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsFaultEncoder1" src="images/indicatorOff.png" alt="off" />
+			<p>Fault encoder 1</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsFaultEncoder2" src="images/indicatorOff.png" alt="off" />
+			<p>Fault encoder 2</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsFaultEncoder3" src="images/indicatorOff.png" alt="off" />
+			<p>Fault encoder 3</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsFaultMotorOvertemperature" src="images/indicatorOff.png" alt="off" />
+			<p>Fault motor overtemperature</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsFaultPowerUnitThermalOverload" src="images/indicatorOff.png" alt="off" />
+			<p>Fault power unit thermal overload</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsAlarmMotorOvertemperature" src="images/indicatorOff.png" alt="off" />
+			<p>Alarm motor overtemperature</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordAlarmsFaultsAlarmPowerUnitThermalOverload" src="images/indicatorOff.png" alt="off" />
+			<p>Alarm power unit thermal overload</p>
+		</div>
+    </div>
+    
+    
+    <div class="pageColumn" id="controlWordSpeedController">
+        <h1>Control word speed controller</h1>
+        <div class="indicatorItem">
+            <img id="controlWordSpeedControllerTravelToFixedStopActive" src="images/indicatorOff.png" alt="off" />
+			<p>Travel to fixed stop active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="controlWordSpeedControllerTorqueControlActive" src="images/indicatorOff.png" alt="off" />
+			<p>Torque control active</p>
+		</div>
+        
+        <div class="legend">
+            <div class="indicatorItem">
+                <img src="images/indicatorOn.png" alt="on" />
+                <p>OK</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorCritical.png" alt="critical" />
+                <p>Not OK</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorNeutral.png" alt="neutral" />
+                <p>May be not important</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pageColumnRight" id="statusWordSpeedController">
+        <h1>Status word speed controller</h1>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerUFcontrolActive" src="images/indicatorOff.png" alt="off" />
+			<p>U/f control active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerEncoderlessOperationActive" src="images/indicatorOff.png" alt="off" />
+			<p>Encoderless operation active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerTorqueControlActive" src="images/indicatorOff.png" alt="off" />
+			<p>Torque control active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerSpeedSetpointFromDSC" src="images/indicatorOff.png" alt="off" />
+			<p>Speed setpoint from DSC</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerSpeedControllerIComponentFrozen" src="images/indicatorOff.png" alt="off" />
+			<p>Speed controll I component frozen</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerSpeedControllerIComponentSet" src="images/indicatorOff.png" alt="off" />
+			<p>Speed controller I component set</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerTorqueLimitReached" src="images/indicatorOff.png" alt="off" />
+			<p>Torque limit reached</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerLowerTorqueLimitActive" src="images/indicatorOff.png" alt="off" />
+			<p>Lower torque limit active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerUpperTorqueLimitActive" src="images/indicatorOff.png" alt="off" />
+			<p>Upper torque limit active</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerSpeedSetpointLimited" src="images/indicatorOff.png" alt="off" />
+			<p>Speed setpoint limited</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerEncoderlessOperationDueToAFault" src="images/indicatorOff.png" alt="off" />
+			<p>Encoderless operation due to a fault</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerDSCpositionControllerLimited" src="images/indicatorOff.png" alt="off" />
+			<p>DSC position controller limited</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerDSCwithSplineOn" src="images/indicatorOff.png" alt="off" />
+			<p>DSC with spline on</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerSpeedPreControlForDSCwithSplineOn" src="images/indicatorOff.png" alt="off" />
+			<p>Speed pre-control for DSC with spline on</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="statusWordSpeedControllerTorquePreControlForDSCwithSplineOn" src="images/indicatorOff.png" alt="off" />
+			<p>Torque pre-control for DSC with spline on</p>
+		</div>
+    </div>
+
+</body>
+</html>

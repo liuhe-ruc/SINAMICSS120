@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<versions>
+    <document>1</document>
+    <minInterpreter>1</minInterpreter>
+</versions>
+<variables>
+    <user>
+        <MWSL><!--
+            var PREFIX_DO_PARAMS = "",
+                ACCESS_LEVEL_ADMIN = 200,
+                ACCESS_LEVEL_SINAMICS = 100,
+                ACCESS_LEVEL_NONE = 10,
+                _accessLevel = ACCESS_LEVEL_NONE,
+                userName = "",
+                doName = "";
+                
+            userName = GetVar("Username", "HTTP");
+            if (userName == "Administrator") {
+                write("Administrator");
+                _accessLevel = ACCESS_LEVEL_ADMIN;
+            } else if (userName == "SINAMICS") {
+                write("SINAMICS");
+                _accessLevel = ACCESS_LEVEL_SINAMICS;
+            } else {
+                write("none");
+            }
+            
+            if (_accessLevel > ACCESS_LEVEL_NONE) {
+                doName = GetVar("doName", "URL");
+				PREFIX_DO_PARAMS = doName + ".Params.";
+            }
+        --></MWSL>
+    </user>
+	<indicatorVariables>
+        <MWSL><!--
+            var controlWordAxis = GetVar(PREFIX_DO_PARAMS + "898"),
+                statusWordAxis = GetVar(PREFIX_DO_PARAMS + "899"),
+                controlWordAlarmsFaults = GetVar(PREFIX_DO_PARAMS + "2138"),
+                statusWordAlarmsFaults = GetVar(PREFIX_DO_PARAMS + "2139"),
+                statusWordAlarmsFaults2 = GetVar(PREFIX_DO_PARAMS + "2135"),
+                controlWordSpeedController = GetVar(PREFIX_DO_PARAMS + "1406"),
+                statusWordSpeedController = GetVar(PREFIX_DO_PARAMS + "1407"),
+                INDICATOR_CRITICAL = 0,
+                INDICATOR_ON = 1,
+                INDICATOR_NEUTRAL = 3;
+        --></MWSL>
+		
+		<controlWordAxisOff1Enable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write(controlWordAxis & 0x0001);
+                }
+            --></MWSL>
+        </controlWordAxisOff1Enable>
+		<controlWordAxisOff2Enable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x0002) >> 1);
+                }
+            --></MWSL>
+        </controlWordAxisOff2Enable>
+        <controlWordAxisOff3Enable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x0004) >> 2);
+                }
+            --></MWSL>
+        </controlWordAxisOff3Enable>
+        <controlWordAxisOperationEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x0008) >> 3);
+                }
+            --></MWSL>
+        </controlWordAxisOperationEnable>
+        <controlWordAxisRampFctGeneratorEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x0010) >> 4);
+                }
+            --></MWSL>
+        </controlWordAxisRampFctGeneratorEnable>
+        <controlWordAxisContinueRampFctGenerator>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x0020) >> 5);
+                }
+            --></MWSL>
+        </controlWordAxisContinueRampFctGenerator>
+        <controlWordAxisSpeedSetpointEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x0040) >> 6);
+                }
+            --></MWSL>
+        </controlWordAxisSpeedSetpointEnable>
+        <controlWordAxisCommandOpenBrake>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAxis & 0x0080) >> 7) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordAxisCommandOpenBrake>
+        <controlWordAxisJog1>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAxis & 0x0100) >> 8) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordAxisJog1>
+        <controlWordAxisJog2>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAxis & 0x0200) >> 9) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordAxisJog2>
+        <controlWordAxisMasterCtrlByPlc>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAxis & 0x0400) >> 10) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordAxisMasterCtrlByPlc>
+        <controlWordAxisSpeedControllerEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((controlWordAxis & 0x1000) >> 12);
+                }
+            --></MWSL>
+        </controlWordAxisSpeedControllerEnable>
+        <controlWordAxisCommandCloseBrake>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAxis & 0x4000) >> 14) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordAxisCommandCloseBrake>
+
+        <statusWordAxisReadyForSwitchOn>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write(statusWordAxis & 0x0001);
+                }
+            --></MWSL>
+        </statusWordAxisReadyForSwitchOn>
+        <statusWordAxisReady>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0002) >> 1);
+                }
+            --></MWSL>
+        </statusWordAxisReady>
+        <statusWordAxisOperationEnabled>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0004) >> 2);
+                }
+            --></MWSL>
+        </statusWordAxisOperationEnabled>
+        <statusWordAxisJogActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x0008) >> 3) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisJogActive>
+        <statusWordAxisNoCoastingActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0010) >> 4);
+                }
+            --></MWSL>
+        </statusWordAxisNoCoastingActive>
+        <statusWordAxisNoQuickStopActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0020) >> 5);
+                }
+            --></MWSL>
+        </statusWordAxisNoQuickStopActive>
+        <statusWordAxisSwitchingOnInhibitedActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x0040) >> 6) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisSwitchingOnInhibitedActive>
+        <statusWordAxisDriveReady>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0080) >> 7);
+                }
+            --></MWSL>
+        </statusWordAxisDriveReady>
+        <statusWordAxisControllerEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0100) >> 8);
+                }
+            --></MWSL>
+        </statusWordAxisControllerEnable>
+        <statusWordAxisControlRequest>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x0200) >> 9) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisControlRequest>
+        <statusWordAxisMasterPulsesEnabled>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((statusWordAxis & 0x0800) >> 11);
+                }
+            --></MWSL>
+        </statusWordAxisMasterPulsesEnabled>
+        <statusWordAxisOpenHoldingBrake>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x1000) >> 12) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisOpenHoldingBrake>
+        <statusWordAxisCommandCloseHoldingBrake>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x2000) >> 13) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisCommandCloseHoldingBrake>
+                <statusWordAxisPulseEnableFromBrakeControl>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x4000) >> 14) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisPulseEnableFromBrakeControl>
+        <statusWordAxisSetpointEnableFromBrakeControl>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAxis & 0x8000) >> 15) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAxisSetpointEnableFromBrakeControl>
+        
+        
+        <controlWordAlarmsFaultsAcknowledgeFaults>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x0080) >> 7) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsAcknowledgeFaults>
+        <controlWordAlarmsFaultsExternalAlarm1Effective>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x0400) >> 10) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsExternalAlarm1Effective>
+        <controlWordAlarmsFaultsExternalAlarm2Effective>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x0800) >> 11) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsExternalAlarm2Effective>
+        <controlWordAlarmsFaultsExternalAlarm3Effective>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x1000) >> 12) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsExternalAlarm3Effective>
+        <controlWordAlarmsFaultsExternalFault1Effective>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x2000) >> 13) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsExternalFault1Effective>
+        <controlWordAlarmsFaultsExternalFault2Effective>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x4000) >> 14) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsExternalFault2Effective>
+        <controlWordAlarmsFaultsExternalFault3Effective>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordAlarmsFaults & 0x8000) >> 15) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </controlWordAlarmsFaultsExternalFault3Effective>
+        <statusWordAlarmsFaultsBeingAcknowledged>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if ((statusWordAlarmsFaults & 0x0001) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsBeingAcknowledged>
+        <statusWordAlarmsFaultsAcknowledgmentRequired>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults & 0x0002) >> 1) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsAcknowledgmentRequired>
+        <statusWordAlarmsFaultsFaultPresent>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults & 0x0004) >> 3) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsFaultPresent>
+        <statusWordAlarmsFaultsSafetyMessagePresent>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults & 0x0020) >> 5) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsSafetyMessagePresent>
+        <statusWordAlarmsFaultsAlarmPresent>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults & 0x0080) >> 7) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsAlarmPresent>
+        
+        <statusWordAlarmsFaultsFaultEncoder1>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if ((statusWordAlarmsFaults2 & 0x0001) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsFaultEncoder1>
+        <statusWordAlarmsFaultsFaultEncoder2>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults2 & 0x0002) >> 2) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsFaultEncoder2>
+        <statusWordAlarmsFaultsFaultEncoder3>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults2 & 0x0004) >> 3) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsFaultEncoder3>
+        <statusWordAlarmsFaultsFaultMotorOvertemperature>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults2 & 0x0100) >> 12) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsFaultMotorOvertemperature>
+        <statusWordAlarmsFaultsFaultPowerUnitThermalOverload>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults2 & 0x2000) >> 13) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsFaultPowerUnitThermalOverload>
+        <statusWordAlarmsFaultsAlarmMotorOvertemperature>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults2 & 0x4000) >> 14) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsAlarmMotorOvertemperature>
+        <statusWordAlarmsFaultsAlarmPowerUnitThermalOverload>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordAlarmsFaults2 & 0x8000) >> 15) == 0) {
+                        write(INDICATOR_ON);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordAlarmsFaultsAlarmPowerUnitThermalOverload>
+        
+        
+        
+        <controlWordSpeedControllerTravelToFixedStopActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordSpeedController & 0x0100) >> 8) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordSpeedControllerTravelToFixedStopActive>
+        <controlWordSpeedControllerTorqueControlActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((controlWordSpeedController & 0x1000) >> 12) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </controlWordSpeedControllerTorqueControlActive>
+        
+        <statusWordSpeedControllerUFcontrolActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if ((statusWordSpeedController & 0x0001) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerUFcontrolActive>
+        <statusWordSpeedControllerEncoderlessOperationActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0002) >> 1) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerEncoderlessOperationActive>
+        <statusWordSpeedControllerTorqueControlActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0004) >> 2) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerTorqueControlActive>
+        <statusWordSpeedControllerSpeedSetpointFromDSC>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0010) >> 4) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerSpeedSetpointFromDSC>
+        <statusWordSpeedControllerSpeedControllerIComponentFrozen>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0020) >> 5) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerSpeedControllerIComponentFrozen>
+        <statusWordSpeedControllerSpeedControllerIComponentSet>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0040) >> 6) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerSpeedControllerIComponentSet>
+        <statusWordSpeedControllerTorqueLimitReached>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0080) >> 7) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerTorqueLimitReached>
+        <statusWordSpeedControllerUpperTorqueLimitActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0100) >> 8) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerUpperTorqueLimitActive>
+        <statusWordSpeedControllerLowerTorqueLimitActive>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0200) >> 9) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerLowerTorqueLimitActive>
+        <statusWordSpeedControllerSpeedSetpointLimited>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x0800) >> 11) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerSpeedSetpointLimited>
+        <statusWordSpeedControllerEncoderlessOperationDueToAFault>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x2000) >> 13) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_CRITICAL);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerEncoderlessOperationDueToAFault>
+        <statusWordSpeedControllerDSCpositionControllerLimited>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x80000) >> 19) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerDSCpositionControllerLimited>
+        <statusWordSpeedControllerDSCwithSplineOn>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x100000) >> 20) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerDSCwithSplineOn>
+        <statusWordSpeedControllerSpeedPreControlForDSCwithSplineOn>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x200000) >> 21) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerSpeedPreControlForDSCwithSplineOn>
+        <statusWordSpeedControllerTorquePreControlForDSCwithSplineOn>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    if (((statusWordSpeedController & 0x400000) >> 22) == 0) {
+                        write(INDICATOR_NEUTRAL);
+                    } else {
+                        write(INDICATOR_ON);
+                    }
+                }
+            --></MWSL>
+        </statusWordSpeedControllerTorquePreControlForDSCwithSplineOn> 
+    </indicatorVariables>
+</variables>
+</root>

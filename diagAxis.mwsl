@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="expires" content="0">
+	<title>Pick and Place Master - Diagnostics</title>
+    <link rel="stylesheet" href="css/diagAxis.css" type="text/css" />
+    <script src="scripts/libByMichael.js" type="text/javascript"></script>
+    <script src="scripts/diagAxis.js" type="text/javascript"></script>
+</head>
+
+<body onload="diagAxisHandler.setupPage()">
+   	<div class="pageColumn" id="indicatorsColumn">
+		<h1>Enables</h1>
+		<div class="indicatorItem">
+            <img id="indicatorEnablesAvailable" src="images/indicatorOff.png" alt="off" />
+			<p>Enables existing</p>
+		</div>
+        <br />
+        <div class="indicatorItem">
+            <img id="indicatorOff1Enable" src="images/indicatorOff.png" alt="off" />
+			<p>OFF1 enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="indicatorOff2Enable" src="images/indicatorOff.png" alt="off" />
+            <p>OFF2 enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="indicatorOff3Enable" src="images/indicatorOff.png" alt="off" />
+			<p>OFF3 enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="indicatorPulseEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Operation enabled</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="indicatorRampFctGeneratorEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Ramp-function generator enable</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="indicatorStartStopRampFctGenerator" src="images/indicatorOff.png" alt="off" />
+			<p>Continue ramp-function generator</p>
+		</div>
+        <div class="indicatorItem">
+            <img id="indicatorSetpointEnable" src="images/indicatorOff.png" alt="off" />
+			<p>Speed setpoint enable</p>
+		</div>
+        
+        <div class="legend">
+            <div class="indicatorItem">
+                <img src="images/indicatorOn.png" alt="on" />
+                <p>Enable available</p>
+            </div>
+            <div class="indicatorItem">
+                <img src="images/indicatorCritical.png" alt="critical" />
+                <p>Enable <em>not</em> available</p>
+            </div>
+        </div>
+	</div>
+
+	<div class="pageColumnRight" id="valuesColumn">
+		<h1>Rotation speed / Torque</h1>
+        <div id="canvasControls">
+            <canvas class="canvasControl" id="gaugeSpeed" width="140" height="140">Canvas (HTML5) is not</canvas>
+            <span> </span>
+            <canvas class="canvasControl" id="barTorque" width="80" height="140"> supported by your browser.</canvas>
+        </div>
+        <div id="noCanvasControls">
+            <p>Canvas (HTML5) is not supported by your browser.</p>
+            <p>Canvas (HTML5) is supported for example as from Internet Explorer 9.</p>
+            <br />
+        </div>
+		<h1>Operation values</h1>
+        <table class="valuesTable"> 
+			<colgroup>
+				<col class="valuesTableColumn1" />
+    			<col class="valuesTableColumnValues" />
+    			<col class="valuesTableColumnUnits" />
+			</colgroup>
+			<thead>
+                <tr>
+				    <th></th>
+				    <th>Value</th>
+				    <th></th>
+			    </tr>
+            </thead>
+            <tbody>
+			    <tr class="valuesTableRowEven">
+				    <td>Output voltage</td>
+				    <td id="valOutputVoltage" class="valuesTableValue">
+					    <span class="value">---</span>
+					    <span class="warningLimit">300</span> 
+					    <span class="criticalLimit">320</span>
+				    </td>
+				    <td>Vrms</td> 
+			    </tr>
+                <tr class="valuesTableRowOdd">
+				    <td>Output current</td>
+				    <td id="valOutputCurrent" class="valuesTableValue">
+					    <span class="value">---</span>
+					    <span class="warningLimit">3</span> 
+					    <span class="criticalLimit">4</span>
+				    </td>
+				    <td>Arms</td> 
+			    </tr>
+                <tr class="valuesTableRowEven">
+                    <td>Output frequency</td>
+				    <td id="valOutputFrequency" class="valuesTableValue">
+					    <span class="value">---</span>
+					    <span class="warningLimit">120</span> 
+					    <span class="criticalLimit">135</span>
+				    </td>
+				    <td>Hz</td> 
+			    </tr>
+			    <tr class="valuesTableRowOdd">
+				    <td>DC-link voltage</td>
+				    <td id="valDcLinkVoltage" class="valuesTableValue">
+					    <span class="value">---</span>
+					    <span class="warningLimit">650</span> 
+					    <span class="criticalLimit">700</span>
+				    </td>
+				    <td>V</td> 
+			    </tr>
+			    <tr class="valuesTableRowEven">
+				    <td>Temperature motor</td>
+				    <td id="valTempMotor" class="valuesTableValue">
+					    <span class="value">---</span>
+					    <span class="warningLimit">100</span> 
+					    <span class="criticalLimit">140</span>
+				    </td>
+				    <td>&deg;C</td> 
+			    </tr>
+			    <tr class="valuesTableRowOdd">
+                    <td>Operating hours</td>
+				    <td id="valMotorOperatingHours" class="valuesTableValue">
+					    <span class="value">---</span>
+					    <span class="warningLimit">150</span> 
+					    <span class="criticalLimit">500</span>
+				    </td>
+				    <td>h</td> 
+			    </tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

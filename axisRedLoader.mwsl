@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="USERFILES/WEBSITES/css/pickAndPlaceMasterHeader.css" type="text/css" />
+    <title>Pick and Place Master - Diagnostics</title>
+</head>
+<body>
+    <MWSL><!--
+ 	var doNameAxisFile = "/USERFILES/WEBSITES/configuration/axis1.doName";
+		var titleAxisFile = "/USERFILES/WEBSITES/configuration/axis1.title";
+		var doNameAxis = "SERVO_02";
+		var titleAxis = "Axis 1";
+		if(ExistFile(doNameAxisFile) > 0)
+		{
+			doNameAxis = ReadFile(doNameAxisFile);
+		}
+		if(ExistFile(titleAxisFile) > 0)
+		{
+			titleAxis = ReadFile(titleAxisFile);
+		}
+	--></MWSL>
+	
+	<div class="pageHeadings">
+        <h1>Pick and Place Master S120 (High-End)</h1>
+	    <div id="subHeadingBox">
+		    <h2 id="headingOneAxis"><MWSL><!--write(titleAxis);--></MWSL> - Diagnostics</h2>
+		        <div id="headerNavigationTabs">            
+                    <input type="button" id="menuControlWords" class="navigationItemUnSelected" value="Status"
+									onclick="document.getElementById('contentOneAxis').src = 'USERFILES/WEBSITES/diagStatusAxis.mwsl?doName=<MWSL><!--write(doNameAxis);--></MWSL>';
+                                    document.getElementById('headingOneAxis').innerHTML = '<MWSL><!--write(titleAxis);--></MWSL> - Status';
+                                    document.getElementById('menuDiagnostics').className = 'navigationItemUnSelected';
+                                    document.getElementById('menuControlWords').className = 'navigationItemSelected';
+                                    document.getElementById('menuControlPanel').className = 'navigationItemUnSelected';" />
+
+					<input type="button" id="menuDiagnostics" class="navigationItemSelected"  value="Diagnostics"
+									onclick="document.getElementById('contentOneAxis').src = 'USERFILES/WEBSITES/diagAxis.mwsl?doName=<MWSL><!--write(doNameAxis);--></MWSL>';
+                                    document.getElementById('headingOneAxis').innerHTML = '<MWSL><!--write(titleAxis);--></MWSL> - Diagnostics';
+                                    document.getElementById('menuDiagnostics').className = 'navigationItemSelected';
+                                    document.getElementById('menuControlWords').className = 'navigationItemUnSelected';
+                                    document.getElementById('menuControlPanel').className = 'navigationItemUnSelected';" />
+                                    
+				</div>
+	    </div>
+    </div>
+    <iframe src="USERFILES/WEBSITES/diagAxis.mwsl?doName=<MWSL><!--write(doNameAxis);--></MWSL>" id="contentOneAxis" class="fullContentWindowIframe">
+        &lt;p&gt;Unfortunately your brwoser is not able to display embedded IFrames&lt;/p&gt;
+    </iframe>
+</body>
+</html>

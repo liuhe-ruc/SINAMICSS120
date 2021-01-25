@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+	<versions>
+		<document>1</document>
+		<minInterpreter>1</minInterpreter>
+	</versions>
+<variables>
+    <user>
+        <MWSL><!--
+            var PREFIX_DO_PARAMS = "",
+                ACCESS_LEVEL_ADMIN = 200,
+                ACCESS_LEVEL_SINAMICS = 100,
+                ACCESS_LEVEL_NONE = 10,
+                _accessLevel = ACCESS_LEVEL_NONE,
+                userName = "",
+                doName = "";
+
+            userName = GetVar("Username", "HTTP");
+            if (userName == "Administrator") {
+                write("Administrator");
+                _accessLevel = ACCESS_LEVEL_ADMIN;
+                
+            } else if (userName == "SINAMICS") {
+                write("SINAMICS");
+                _accessLevel = ACCESS_LEVEL_SINAMICS;
+            } else {
+                write("none");
+            }
+            
+            if (_accessLevel > ACCESS_LEVEL_NONE) {
+                doName = GetVar("doName", "URL");
+				PREFIX_DO_PARAMS = doName + ".Params.";
+            }
+        --></MWSL>
+    </user>
+	<indicatorVariables>
+	    <indicatorEnablesAvailable>
+            <MWSL><!--
+				if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    var missingEnables = (GetVar(PREFIX_DO_PARAMS + "46"));
+                    var missingEnablesOff2 = (missingEnables & 0x0002) ;
+                    var missingEnablesOff3 = (missingEnables & 0x0004) ;
+                    var missingEnablesOperation = (missingEnables & 0x0008) ;
+                    var missingEnablesArmatureSct = (missingEnables & 0x0010) ;
+                    var missingEnablesStop2 = (missingEnables & 0x0020) ;
+                    var missingEnablesStop1 = (missingEnables & 0x0040) ;
+                    var missingEnablesSafety = (missingEnables & 0x0100) ;
+                    var missingEnablesInfeed = (missingEnables & 0x0200) ;
+                    var missingEnablesRfctGen = (missingEnables & 0x0400) ;
+                    var missingEnablesRfctGenStart = (missingEnables & 0x0800) ;
+                    var missingEnablesSetpoint = (missingEnables & 0x1000) ;
+                    var missingEnablesOff1Internal = (missingEnables & 0x10000) ;
+                    var missingEnablesOff2Internal = (missingEnables & 0x20000) ;
+                    var missingEnablesOff3Internal = (missingEnables & 0x40000) ;
+                    var missingEnablesPulseEnableInternal = (missingEnables & 0x80000) ;
+                    var missingEnablesStop2Internal = (missingEnables & 0x200000) ;
+                    var missingEnablesStop1Internal = (missingEnables & 0x400000) ;
+                    var missingEnablesBypass = (missingEnables & 0x2000000) ;
+                    var missingEnablesDrive = (missingEnables & 0x4000000) ;
+                    var missingEnablesDeMagnetizing = (missingEnables & 0x8000000) ;
+                    var missingEnablesCooling = (missingEnables & 0x20000000) ;	
+                    var missingEnablesSpeedController = (missingEnables & 0x40000000) ;	
+                    var missingEnablesJogSetpoint = (missingEnables >> 31) ;
+                    
+                    if ((missingEnablesOff2 + missingEnablesOff3 + missingEnablesOperation + missingEnablesArmatureSct + missingEnablesStop2 + 
+                        missingEnablesStop1+ missingEnablesSafety + missingEnablesInfeed + missingEnablesRfctGen + missingEnablesRfctGenStart +
+                        missingEnablesSetpoint + missingEnablesOff1Internal + missingEnablesOff2Internal + missingEnablesOff3Internal + 
+                        missingEnablesPulseEnableInternal + missingEnablesStop2Internal + missingEnablesStop1Internal + missingEnablesBypass + 
+                        missingEnablesDrive + missingEnablesDeMagnetizing + missingEnablesCooling + missingEnablesSpeedController + 
+                        missingEnablesJogSetpoint) == 0)
+
+                    {
+                        write("1");
+                    }
+                    else 
+                    {
+                        write("0");
+                    }
+                }
+			--></MWSL>
+		</indicatorEnablesAvailable>
+		<indicatorOff1Enable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0001));
+                }
+            --></MWSL>
+        </indicatorOff1Enable>
+		<indicatorOff2Enable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0002) >> 1);
+                }
+			--></MWSL>
+		</indicatorOff2Enable>
+        <indicatorOff3Enable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0004) >> 2);
+                }
+			--></MWSL>
+		</indicatorOff3Enable> 
+        <indicatorPulseEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0008) >> 3);
+                }
+			--></MWSL>
+		</indicatorPulseEnable> 
+        <indicatorRampFctGeneratorEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0010) >> 4);
+                }
+			--></MWSL>
+		</indicatorRampFctGeneratorEnable> 
+        <indicatorStartStopRampFctGenerator>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0020) >> 5);
+                }
+			--></MWSL>
+		</indicatorStartStopRampFctGenerator>
+		<indicatorSetpointEnable>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    write((GetVar(PREFIX_DO_PARAMS + "898") & 0x0040) >> 6);
+                }
+			--></MWSL>
+		</indicatorSetpointEnable>
+    </indicatorVariables>
+    <numericVariables>
+		<valOutputVoltage>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    WriteVar(PREFIX_DO_PARAMS + "25", "PROCESS", "%3.0f");
+                }
+			--></MWSL>
+		</valOutputVoltage>
+		<valOutputCurrent>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    WriteVar(PREFIX_DO_PARAMS + "27", "PROCESS", "%3.0f");
+                }
+			--></MWSL>
+		</valOutputCurrent>
+		<valOutputFrequency>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    WriteVar(PREFIX_DO_PARAMS + "24", "PROCESS", "%3.0f");
+                }
+			--></MWSL>
+		</valOutputFrequency>
+		<valDcLinkVoltage>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    WriteVar(PREFIX_DO_PARAMS + "70", "PROCESS", "%3.0f");
+                }
+			--></MWSL>
+		</valDcLinkVoltage>
+		<valMotorOperatingHours>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    WriteVar(PREFIX_DO_PARAMS + "650[0]", "PROCESS", "%3.0f");
+                }
+			--></MWSL>
+		</valMotorOperatingHours>
+        <valTempMotor>
+            <MWSL><!--
+                if (_accessLevel > ACCESS_LEVEL_NONE) {
+                    WriteVar(PREFIX_DO_PARAMS + "35", "PROCESS", "%3.0f");
+                }
+			--></MWSL>
+		</valTempMotor>
+    </numericVariables>
+    <gaugeVariables>
+		<gaugeSpeed>
+            <value>
+                <MWSL><!--
+                    if (_accessLevel > ACCESS_LEVEL_NONE) {
+                        WriteVar(PREFIX_DO_PARAMS + "22", "PROCESS", "%4.0f");
+                    }
+                --></MWSL>
+            </value>
+            <setValue>
+                <MWSL><!--
+                    if (_accessLevel > ACCESS_LEVEL_NONE) {
+                        WriteVar(PREFIX_DO_PARAMS + "20", "PROCESS", "%4.0f");
+                    }
+                --></MWSL>
+            </setValue>
+        </gaugeSpeed>
+	</gaugeVariables>
+	<barVariables>
+		<barTorque>
+			<value>
+                <MWSL><!--
+                    if (_accessLevel > ACCESS_LEVEL_NONE) {
+                        WriteVar(PREFIX_DO_PARAMS + "31", "PROCESS", "%2.1f");
+                    }
+                --></MWSL>
+            </value>
+		</barTorque>
+	</barVariables>
+</variables>
+</root>
